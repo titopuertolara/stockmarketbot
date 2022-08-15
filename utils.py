@@ -7,6 +7,7 @@ from twilio.rest import Client
 import time
 import sqlite3
 import pandas as pd
+from sqlalchemy import create_engine
 
 
 # webscrapper and yahoo finance consult
@@ -87,14 +88,16 @@ class whatsapp_sender:
 # database manager
 
 class manage_db:
-    def __init__(self,maindb,tablename,txtfile):
+    def __init__(self,maindb,tablename,txtfile,postgres_con_str):
         self.maindb_path=maindb
         self.tablename=tablename
         self.txt_filename=txtfile
+        self.postgres_con_str=postgres_con_str
         
     def db_connect(self):
         self.conn=sqlite3.connect(self.maindb_path)
         self.cur=self.conn.cursor()
+       	   	
         
     def info_txt_file(self):
         with open(self.txt_filename,'r') as file:
@@ -146,11 +149,18 @@ class manage_db:
         		actual_val=df[(df['stock']==stock)&(df['fecha']==actual_date)]['total'].values[0]
         		last_val=df[(df['stock']==stock)&(df['fecha']==last_date)]['total'].values[0]
         		show_df.loc[stock,'diff']=round(actual_val-last_val,1)
-        		show_df.loc[stock,'var']=round(100*((actual_val-last_val)/last_val),1)
+        		show_df.loc[stock,'var']=round(100*((actual_val-last_val)/last_val),3)
         	return show_df
         
         else:
         	show_df.loc[0,'warning']='waiting for more data'
         	return show_df
+    def postgres_connect(self):
+     	self.engine=create_engine(self.postgres_con_str)
+     	self.conn=self.engine.raw_connection()
+     	self.cur=self.conn.cursor()
+     	
+     	
+     	
         	
             
