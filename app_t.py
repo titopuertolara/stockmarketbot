@@ -14,9 +14,15 @@ user=''
 password=''
 
 
+<<<<<<< HEAD
 con_str='postgresql://hneontjeqglbyc:36b0140411d2b3c5eee5071eb40948cbe2375118b05237d2a1b6e8079b7bd3b4@ec2-34-234-240-121.compute-1.amazonaws.com:5432/d620ik01ncabkt'
 url1='https://www.morningstar.co.uk/uk/etf/snapshot/snapshot.aspx?id=0P0001GY9H'
 url2='https://www.larepublica.co/indicadores-economicos/mercado-cambiario/dolar'
+=======
+con_str=''
+url1=''
+url2=''
+>>>>>>> a3cdfd7307638fa37718ac693cb2312ee5716c8f
 leeloo=Tofu_reporter(url1,url2,['PFE'])
 
 db_path='history_stocks.db'
@@ -28,8 +34,12 @@ db_obj.postgres_connect()
 
 if __name__=="__main__":
     
+<<<<<<< HEAD
     #whatsapp.login()
     mail_obj.login(user,password)
+=======
+    whatsapp.login()
+>>>>>>> a3cdfd7307638fa37718ac693cb2312ee5716c8f
     api_stock_dict={}
     api_stock_dict.update(leeloo.get_custom_stonks())
     api_stock_dict.update(leeloo.get_stonks_yf())
