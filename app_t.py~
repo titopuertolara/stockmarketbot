@@ -2,16 +2,16 @@ from tabulate import tabulate
 from utils import Tofu_reporter,whatsapp_sender,manage_db
 from email_handler import email_handler
 from datetime import datetime
-#account_sid = ''
-#auth_token = ''
-#sender='
-#receiver=''
+#account_sid = 'AC1739cc676ed44649ad40e2fee9ebc410'
+#auth_token = '3c5db0934d6c437e18da994681d99959'
+#sender='+14155238886'
+#receiver='+573202317773'
 #whatsapp=whatsapp_sender(account_sid,auth_token)
-smtp_server=''
-port=
+smtp_server='smtp.outlook.com'
+port=587
 mail_obj=email_handler(smtp_server,port)
-user=''
-password=''
+user='andresestebanana@hotmail.com'
+password='Alejita07'
 
 
 con_str='postgresql://hneontjeqglbyc:36b0140411d2b3c5eee5071eb40948cbe2375118b05237d2a1b6e8079b7bd3b4@ec2-34-234-240-121.compute-1.amazonaws.com:5432/d620ik01ncabkt'
