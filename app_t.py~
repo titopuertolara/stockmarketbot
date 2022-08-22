@@ -51,7 +51,7 @@ if __name__=="__main__":
     print(today)
     print(hour)
     
-    if hour=='17' or hour=='09':
+    if hour=='17':
     	msg=db_obj.get_daily_report()
     	print('enviamos mensaje')
     	try:
