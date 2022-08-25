@@ -1,0 +1,7 @@
+pandas
+twilio
+tabulate
+yfinance
+beautifulsoup4
+SQLAlchemy
+psycopg2

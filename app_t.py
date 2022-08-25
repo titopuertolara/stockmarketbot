@@ -8,7 +8,7 @@ from datetime import datetime
 #receiver=''
 #whatsapp=whatsapp_sender(account_sid,auth_token)
 smtp_server=''
-port=
+port=587
 mail_obj=email_handler(smtp_server,port)
 user=''
 password=''
@@ -17,7 +17,7 @@ password=''
 con_str=''
 url1='https://www.morningstar.co.uk/uk/etf/snapshot/snapshot.aspx?id=0P0001GY9H'
 url2='https://www.larepublica.co/indicadores-economicos/mercado-cambiario/dolar'
-leeloo=Tofu_reporter(url1,url2,['PFE'])
+leeloo=Tofu_reporter(url1,url2,['PFE','NU'])
 
 db_path='history_stocks.db'
 db_table='base'
@@ -51,11 +51,11 @@ if __name__=="__main__":
     print(today)
     print(hour)
     
-    if hour=='17' or hour=='09':
+    if hour=='17' or hour=='10' or hour=='14':
     	msg=db_obj.get_daily_report()
     	print('enviamos mensaje')
     	try:
-    		mail_obj.send_message('','Jefecito aqui te reporto como vas en la bolsa',msg)
+    		mail_obj.send_message('andrespuertolara@gmail.com','Hola Jefe, así vas en trii',msg)
     	except Exception as e:
     		print(e)
     

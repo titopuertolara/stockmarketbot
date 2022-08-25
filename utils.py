@@ -150,6 +150,7 @@ class manage_db:
         		last_val=df[(df['stock']==stock)&(df['fecha']==last_date)]['total'].values[0]
         		show_df.loc[stock,'diff']=round(actual_val-last_val,1)
         		show_df.loc[stock,'var']=round(100*((actual_val-last_val)/last_val),3)
+        		
         	return show_df
         
         else:
@@ -159,6 +160,29 @@ class manage_db:
      	self.engine=create_engine(self.postgres_con_str)
      	self.conn=self.engine.raw_connection()
      	self.cur=self.conn.cursor()
+    def get_daily_report(self):
+    	df=self.get_info()
+    	df['fecha']=df['time'].apply(lambda x:time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(float(x))))
+    	df['total']=df['value']*df['cant']
+    	df['days']=df['fecha'].apply(lambda x: str(x).split()[0])
+    	days_list=list(df['days'].unique())
+    	last_day_df=df[df['days']==days_list[-2]]
+    	last_day_by_hour_df=last_day_df.groupby(['fecha']).sum().reset_index()
+    	last_date=last_day_by_hour_df['fecha'].to_list()[-1]
+    	last_value=last_day_by_hour_df['total'].to_list()[-1]
+    	
+    	by_hour_df=df.groupby(['fecha']).sum().reset_index()
+    	actual_date=by_hour_df['fecha'].to_list()[-1]
+    	actual_value=by_hour_df['total'].to_list()[-1]
+    	
+    	at_the_beginning=by_hour_df['total'].to_list()[0]
+    	
+    	msg=f'Al dia de hoy {actual_date} tienes ${round(actual_value,1)} \nEl dia anterior {last_date}, tenías ${round(last_value,1)}'
+    	msg+=f'\nLa variación por lo tanto es del {round(100*(actual_value-last_value)/last_value,2)}% (${round(actual_value-last_value,2)})\n'
+    	msg+=f'La variación respecto al inicio de mi existencia es del {round(100*(actual_value-at_the_beginning)/at_the_beginning,2)}% (${round(actual_value-at_the_beginning,2)})'
+    	return msg
+
+    	
      	
      	
      	
